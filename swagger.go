@@ -210,8 +210,8 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="./swagger-ui.css" />
-    <link rel="stylesheet" type="text/css" href="index.css" />
+	<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.15.2/index.css" />
 
     <link href="css/index.css" rel="stylesheet"/>
     <link href='css/standalone.css' rel='stylesheet'/>
@@ -408,9 +408,9 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
         </div>
     </div>
 </section>
-<script src="./swagger-ui-bundle.js" charset="UTF-8"> </script>
-<script src="./swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
-<script src="./swagger-initializer.js" charset="UTF-8"> </script>
+<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui-bundle.js" crossorigin></script>
+<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui-standalone-preset.js" crossorigin></script>
+<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-initializer.js" crossorigin></script>
 </body>
 </html>
 `
