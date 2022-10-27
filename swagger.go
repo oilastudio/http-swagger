@@ -210,6 +210,9 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<link rel="stylesheet" type="text/css" href="./swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+
     <link href="css/index.css" rel="stylesheet"/>
     <link href='css/standalone.css' rel='stylesheet'/>
     <link href='css/api-explorer.css' rel='stylesheet' type='text/css'/>
@@ -405,6 +408,9 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
         </div>
     </div>
 </section>
+<script src="./swagger-ui-bundle.js" charset="UTF-8"> </script>
+<script src="./swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+<script src="./swagger-initializer.js" charset="UTF-8"> </script>
 </body>
 </html>
 `
