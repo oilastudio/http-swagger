@@ -229,12 +229,13 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
     <script src='lib/handlebars-2.0.0.js' type='text/javascript'></script>
     <script src='lib/underscore-min.js' type='text/javascript'></script>
     <script src='lib/backbone-min.js' type='text/javascript'></script>
-    <script src='swagger-ui.js' type='text/javascript'></script>
     <script src='lib/jsoneditor.js' type='text/javascript'></script>
     <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
     <script src='lib/marked.js' type='text/javascript'></script>
     <script src='lib/swagger-oauth.js' type='text/javascript'></script>
     <script src='lib/bootstrap.min.js' type='text/javascript'></script>
+	<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui-bundle.js" crossorigin></script>
+	<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui-standalone-preset.js" crossorigin></script>
 
     <script type="text/javascript">
         jQuery.browser = jQuery.browser || {};
@@ -412,8 +413,6 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
         </div>
     </div>
 </section>
-<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui-bundle.js" crossorigin></script>
-<script src="https://unpkg.com/swagger-ui-dist@4.15.2/swagger-ui-standalone-preset.js" crossorigin></script>
 </body>
 </html>
 `
