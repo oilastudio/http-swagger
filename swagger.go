@@ -121,9 +121,9 @@ func AfterScript(js string) func(*Config) {
 
 func newConfig(configFns ...func(*Config)) *Config {
 	config := Config{
-		URL:                  "doc.json",
+		URL:                  "swagger/doc.json",
 		DocExpansion:         "list",
-		DomID:                "swagger-ui",
+		DomID:                "swagger-ui-container",
 		InstanceName:         "swagger",
 		DeepLinking:          true,
 		PersistAuthorization: false,
