@@ -1,6 +1,7 @@
 package httpSwagger
 
 import (
+	"fmt"
 	"golang.org/x/net/webdav"
 	"html/template"
 	"net/http"
@@ -158,16 +159,19 @@ func Handler(configFns ...func(*Config)) http.HandlerFunc {
 		}
 
 		matches := re.FindStringSubmatch(r.RequestURI)
+		fmt.Println("matches", matches)
 
 		path := matches[2]
-
+		fmt.Println("path", path)
 		if config.Handler == nil {
 			config.Handler = swaggerFiles.Handler
 		}
 
 		once.Do(func() {
 			config.Handler.Prefix = matches[1]
+			fmt.Println("Prefix", config.Handler.Prefix)
 		})
+		fmt.Println("Prefix222", config.Handler.Prefix)
 
 		switch filepath.Ext(path) {
 		case ".html":
