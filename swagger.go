@@ -231,6 +231,7 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
     <script src='lib/backbone-min.js' type='text/javascript'></script>
     <script src='lib/jsoneditor.js' type='text/javascript'></script>
     <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+<script src='swagger-ui.js' type='text/javascript'></script>
     <script src='lib/marked.js' type='text/javascript'></script>
     <script src='lib/swagger-oauth.js' type='text/javascript'></script>
     <script src='lib/bootstrap.min.js' type='text/javascript'></script>
@@ -262,30 +263,66 @@ const indexTempl = `<!-- HTML for static distribution bundle build -->
 			  {{.BeforeScript}}
 			  {{- end}}
 			  // Build a system
-			  const ui = SwaggerUIBundle({
-				url: "{{.URL}}",
-				deepLinking: {{.DeepLinking}},
-				docExpansion: "{{.DocExpansion}}",
-				dom_id: "#{{.DomID}}",
-				persistAuthorization: {{.PersistAuthorization}},
-				validatorUrl: null,
-				presets: [
-				  SwaggerUIBundle.presets.apis,
-				  SwaggerUIStandalonePreset
-				],
-				plugins: [
-				  SwaggerUIBundle.plugins.DownloadUrl
-				  {{- range $plugin := .Plugins }},
-				  {{$plugin}}
-				  {{- end}}
-				],
-				{{- range $k, $v := .UIConfig}}
-				{{$k}}: {{$v}},
-				{{- end}}
-				layout: "StandaloneLayout"
-			  })
-			
-			  window.ui = ui
+			  window.swaggerUi = new SwaggerUi({
+                url: url,
+                dom_id: "swagger-ui-container",
+                supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+                onComplete: function (swaggerApi, swaggerUi) {
+                    if (typeof initOAuth == "function") {
+
+                        initOAuth({
+                            clientId: "ffe7748a-3a3f-4860-a02a-42ab08e4fde2",
+                            realm: "realm",
+                            appName: "Swagger"
+                        });
+
+                    }
+
+                    $('pre code').each(function (i, e) {
+                        hljs.highlightBlock(e)
+                    });
+
+                    if (swaggerUi.options.url) {
+                        $('#input_baseUrl').val(swaggerUi.options.url);
+                    }
+                    if (swaggerUi.options.apiKey) {
+                        $('#input_apiKey').val(swaggerUi.options.apiKey);
+                    }
+
+                    $("[data-toggle='tooltip']").tooltip();
+
+                    addApiKeyAuthorization();
+                },
+                onFailure: function (data) {
+                    log("Unable to Load SwaggerUI");
+                },
+                docExpansion: "none",
+                sorter: "alpha"
+            });
+
+            function addApiKeyAuthorization() {
+                var key = encodeURIComponent($('#input_apiKey')[0].value);
+                if (key && key.trim() != "") {
+                    var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("Authorization", "Bearer " + key, "header");
+                    window.swaggerUi.api.clientAuthorizations.add("key", apiKeyAuth);
+                    log("added key " + key);
+                }
+            }
+
+            $('#input_apiKey').change(addApiKeyAuthorization);
+            // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
+            /*
+             var apiKey = "myApiKeyXXXX123456789";
+             $('#input_apiKey').val(apiKey);
+             */
+
+            window.swaggerUi.load();
+
+            function log() {
+                if ('console' in window) {
+                    console.log.apply(console, arguments);
+                }
+            }
 			  {{- if .AfterScript}}
 			  {{.AfterScript}}
 			  {{- end}}
